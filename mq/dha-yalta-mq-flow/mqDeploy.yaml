@@ -1,0 +1,51 @@
+apiVersion: mq.ibm.com/v1beta1
+kind: QueueManager
+metadata:
+  name: yalta-queue-manager-dha
+  namespace: cp4i
+spec:
+  license:
+    accept: true
+    license: L-RJON-BZFQU2
+   # license: L-RJON-BN7PN3
+    metric: VirtualProcessorCore
+    use: NonProduction
+  queueManager:
+    image: cp.icr.io/cp/ibm-mqadvanced-server-integration:9.2.3.0-r1-amd64
+    imagePullPolicy: Always
+    storage:
+      queueManager:
+        enabled: true
+    availability:
+      type: SingleInstance
+      #type: NativeHA
+    name: YALTA_DHA
+    mqsc:
+    - configMap:
+        name: yalta-dha-mqsc
+        items:
+        - yalta.mqsc
+  template:
+    pod:
+      containers:
+        - env:
+            - name: MQSNOAUT
+              value: 'yes'
+          name: qmgr
+  version: 9.2.3.0-r1
+ # version: 9.2.0.0-r1
+  web:
+    enabled: true
+#  tracing:
+#    enabled: true
+#    namespace: cp4i
+  pki:
+    keys:
+      - name: label2
+        secret:
+          secretName: dha-yaltakey
+          items:
+            - tls.key
+            - tls.crt
+  imagePullSecrets:
+    - name: ibm-entitlement-key

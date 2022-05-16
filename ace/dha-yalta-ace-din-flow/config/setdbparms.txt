@@ -1,0 +1,1 @@
+mqsisetdbparms -w ace-server -n odbc::SQLSERVERDB -u svc_yalta_ace -p yalta

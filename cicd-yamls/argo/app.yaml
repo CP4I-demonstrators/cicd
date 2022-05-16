@@ -1,0 +1,14 @@
+project: default
+source:
+  repoURL: 'https://github.com/Mattar555/dha-yalta-gitops-argo.git'
+  path: ./
+  targetRevision: HEAD
+destination:
+  namespace: dev
+  name: in-cluster
+syncPolicy:
+  automated:
+    selfHeal: true
+  syncOptions:
+    - Validate=false
+

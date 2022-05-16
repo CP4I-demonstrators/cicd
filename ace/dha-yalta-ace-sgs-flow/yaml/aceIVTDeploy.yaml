@@ -1,0 +1,39 @@
+apiVersion: appconnect.ibm.com/v1beta1
+kind: IntegrationServer
+metadata:
+  name: sgs-ace-is
+  namespace: cp4i
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  pod:
+    containers:
+      runtime:
+        image: image-registry.openshift-image-registry.svc:5000/cp4i/sgs-ace-is:v1
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 2
+            memory: 2Gi
+          requests:
+            cpu: 1
+            memory: 1Gi
+  version: 12.0.1.0-r3
+  imagePullSecrets:
+    name: default-dockercfg-6qp7c
+  license:
+    accept: true
+    license: L-KSBM-C37J2R
+    use: AppConnectEnterpriseProduction
+  useCommonServices: true
+  enableMetrics: true
+  replicas: 1
+  service:
+    endpointType: https
+  designerFlowsOperationMode: disabled
+  adminServerSecure: false
+  tracing:
+    enabled: true
+    namespace: cp4i
+  logFormat: basic
+  configurations: ["mqpolicy"]

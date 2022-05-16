@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: mqroute 
+  namespace: cp4i
+spec:
+  host: tls2.chl.mq.ibm.com
+  to:
+    kind: Service
+    name: yalta-queue-manager-dha-ibm-mq
+  port:
+    targetPort: 1414
+  tls:
+    termination: passthrough
