@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: commit-yamls
-  namespace: cp4i
+  namespace: cp4idemonstrators
 spec:
   params:
     - name: source-dir
